@@ -116,6 +116,10 @@ void tampillist()
     int maks, harga, cari, ada, barang, kode;
     int b, ketemu;
     int total = 0;
+    
+    // Tambah var fix_bug
+    int fix_bug = 0;
+    
     int bayar, kembalian;
     baca = awal;
     i = 1;
@@ -126,15 +130,31 @@ void tampillist()
         cout << "\nNama Barang : " << baca->nama;
         cout << "\nHarga : " << baca->harga;
         cout << "\nJumlah Barang : " << baca->satuan;
+        
+        /*
+            Karena disini neghitung setiap barang, makanya
+            kalkulasi hasil disini
+        */
+        fix_bug = fix_bug + (baca->harga * baca->satuan);
+        
         i++;
         cout << "\n===================================\n";
         baca = baca->berikut;
     }
     total = total + harga;
-    cout << "\nTotal Pembelian = Rp. " << total << endl;
-    cout << "Total Bayar     = Rp. ";
-    cin >> bayar;
-    kembalian = bayar - total;
+    
+    // Ganti var total ke fix_bug
+    cout << "\nTotal Pembelian = Rp. " << fix_bug << endl;
+    
+    // Tambahin kondisi biar dia gabisa ngutang atau minus
+    do {
+        cout << "Total Bayar     = Rp. ";
+        cin >> bayar;
+    } while (bayar < fix_bug);
+    
+    // Ganti var total ke fix_bug
+    kembalian = bayar - fix_bug;
+    
     cout << "\nUang Kembalian   = " << kembalian << endl;
 
     cout << "======================================\n";
